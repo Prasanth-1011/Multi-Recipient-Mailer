@@ -1,6 +1,7 @@
 import { Router } from "express";
-
 import nodemailer from "nodemailer";
+
+import History from "../Models/History.mjs";
 
 const router = Router();
 const transporter = nodemailer.createTransport({
@@ -30,11 +31,28 @@ router.post("/mail", async (req, res) => {
                 text,
             });
         }
-        return res.status(200).json({ message: "Mail Sent Successfully" });
+
+        await History.create({ subject, text, mails });
+
+        return res.status(200).json({
+            message: `Mail Sent For ${mails.length} Users Successfully`,
+        });
     } catch (error) {
         return res.status(500).json({
             message: "Something Went Wrong",
             error: error.message,
+        });
+    }
+});
+
+router.get("/mails/count", async (req, res) => {
+    try {
+        const count = await History.countDocuments();
+        if (count) return res.status(200).json({ count });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message,
+            message: "An Unexpected Error Occured. Try Sometime Later",
         });
     }
 });
