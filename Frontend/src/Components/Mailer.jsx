@@ -42,7 +42,7 @@ const Mailer = () => {
             console.log(payload);
 
             const response = await axios.post(
-                `${import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"}/api/mail`,
+                "http://localhost:3000/api/mail",
                 payload,
             );
 
@@ -75,7 +75,7 @@ const Mailer = () => {
                     <input
                         type="text"
                         value={data.subject}
-                        placeholder="Define Your Purpose"
+                        placeholder="Subject"
                         onChange={(e) =>
                             setData({ ...data, subject: e.target.value })
                         }
@@ -92,7 +92,7 @@ const Mailer = () => {
                         onChange={(e) =>
                             setData({ ...data, text: e.target.value })
                         }
-                        placeholder="Your Message"
+                        placeholder="Message"
                         className="min-h-[280px] w-full resize-none rounded-xl border border-zinc-800 bg-zinc-950 p-4 text-zinc-100 shadow-inner transition-all placeholder:text-zinc-600 focus:ring-1 focus:ring-amber-500/50 focus:outline-none"
                     />
                 </div>
