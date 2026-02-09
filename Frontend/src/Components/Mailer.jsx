@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-import RichTextEditor from "./RichTextEditor.jsx";
+import RichTextEditor from "./RichText/RichTextEditor";
 import FileUpload from "./FileUpload";
 import parseData from "../Utils/Parse.js";
 
