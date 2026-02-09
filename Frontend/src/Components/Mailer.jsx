@@ -42,7 +42,7 @@ const Mailer = () => {
             console.log(payload);
 
             const response = await axios.post(
-                "http://localhost:3000/api/mail",
+                `${import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"}/api/mail`,
                 payload,
             );
 
