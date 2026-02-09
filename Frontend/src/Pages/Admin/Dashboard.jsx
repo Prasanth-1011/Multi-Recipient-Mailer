@@ -27,7 +27,7 @@ const Dashboard = () => {
         const fetchHistory = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3000/api/admin/mails",
+                    "https://multi-recipient-mailer.onrender.com/api/admin/mails",
                 );
                 setHistory(response.data.history);
                 setMessage(response.data.message);

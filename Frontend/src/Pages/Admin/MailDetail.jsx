@@ -22,7 +22,7 @@ const MailDetail = () => {
         const fetchMail = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/admin/mail/${id}`,
+                    `https://multi-recipient-mailer.onrender.com/api/admin/mail/${id}`,
                 );
                 setMail(response.data.mail);
             } catch (error) {

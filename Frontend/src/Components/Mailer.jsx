@@ -42,7 +42,7 @@ const Mailer = () => {
             console.log(payload);
 
             const response = await axios.post(
-                "http://localhost:3000/api/mail",
+                "https://multi-recipient-mailer.onrender.com/api/mail",
                 payload,
             );
 

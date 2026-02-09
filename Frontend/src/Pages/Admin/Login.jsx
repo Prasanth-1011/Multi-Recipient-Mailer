@@ -28,7 +28,7 @@ const Login = () => {
         setLoad(true);
         try {
             const response = await axios.post(
-                "http://localhost:3000/api/admin/login",
+                "https://multi-recipient-mailer.onrender.com/api/admin/login",
                 formData,
             );
             setMessage(response.data.message);
