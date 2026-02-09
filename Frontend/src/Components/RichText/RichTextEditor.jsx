@@ -1,3 +1,4 @@
+import { $getRoot } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { LinkNode } from "@lexical/link";
@@ -15,6 +16,8 @@ const initialConfig = {
     onError: console.error,
     nodes: [ListNode, ListItemNode, LinkNode],
 };
+
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 const RichTextEditor = ({ value, onChange, className = "w-full" }) => {
     const [alignment, setAlignment] = useState("left");
@@ -39,15 +42,24 @@ const RichTextEditor = ({ value, onChange, className = "w-full" }) => {
             <LexicalComposer initialConfig={initialConfig}>
                 <Toolbar alignment={alignment} setAlignment={setAlignment} />
                 <EditorPlugins />
-                <OnChangePlugin
-                    onChange={(editorState) => {
-                        editorState.read(() => {
-                            onChange(editorState.toString() || "");
-                        });
-                    }}
-                />
+                <OnChangeContent onChange={onChange} />
             </LexicalComposer>
         </div>
+    );
+};
+
+const OnChangeContent = ({ onChange }) => {
+    const [editor] = useLexicalComposerContext();
+    return (
+        <OnChangePlugin
+            onChange={(editorState) => {
+                editorState.read(() => {
+                    const root = $getRoot();
+                    const text = root.getTextContent();
+                    onChange(text);
+                });
+            }}
+        />
     );
 };
 

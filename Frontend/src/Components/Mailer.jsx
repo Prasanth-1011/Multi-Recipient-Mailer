@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 
-import RichTextEditor from "./RichText/RichTextEditor";
 import FileUpload from "./FileUpload";
 import parseData from "../Utils/Parse.js";
 
@@ -47,14 +46,18 @@ const Mailer = () => {
                 payload,
             );
 
-            setData(payload);
-            setMessage(response.data?.message || "Emails sent successfully!");
+            setData({
+                subject: "",
+                text: "",
+                mails: [],
+            });
+            setMessage(response.data?.message || "Emails Sent Successfully!");
         } catch (error) {
-            console.error("Sending error:", error);
+            console.error("Sending Error:", error);
             const errorMsg =
                 error.response?.data?.message ||
                 error.message ||
-                "Failed to send emails. Please try again.";
+                "Failed Sending Mails. Please Try Again.";
             setMessage(errorMsg);
         } finally {
             setLoad(false);
@@ -84,10 +87,13 @@ const Mailer = () => {
                     <label className="ml-1 text-sm font-bold tracking-wider text-zinc-500 capitalize">
                         Message
                     </label>
-                    <RichTextEditor
+                    <textarea
                         value={data.text}
-                        onChange={(html) => setData({ ...data, text: html })}
-                        className="w-full border-zinc-800"
+                        onChange={(e) =>
+                            setData({ ...data, text: e.target.value })
+                        }
+                        placeholder="Your Message"
+                        className="min-h-[280px] w-full resize-none rounded-xl border border-zinc-800 bg-zinc-950 p-4 text-zinc-100 shadow-inner transition-all placeholder:text-zinc-600 focus:ring-1 focus:ring-amber-500/50 focus:outline-none"
                     />
                 </div>
 

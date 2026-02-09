@@ -28,9 +28,9 @@ const adminSchema = new Schema(
     },
 );
 
-adminSchema.pre("save", function () {
+adminSchema.pre("save", async function () {
     if (!this.isModified("password")) return;
-    this.password = bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
 });
 
 adminSchema.methods.comparePassword = async function (password) {

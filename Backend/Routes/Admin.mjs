@@ -24,6 +24,25 @@ router.get("/mails", async (req, res) => {
     }
 });
 
+router.get("/mail/:id", async (req, res) => {
+    try {
+        const mail = await History.findById(req.params.id);
+
+        if (!mail)
+            return res.status(404).json({ message: "Mail Record Not Found" });
+
+        return res.status(200).json({
+            mail,
+            message: "Mail Record Fetched Successfully!",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: "Internal Server Error",
+            message: "Can't Fetch Data From Server",
+        });
+    }
+});
+
 router.post("/login", async (req, res) => {
     try {
         const { mail, password } = req.body;

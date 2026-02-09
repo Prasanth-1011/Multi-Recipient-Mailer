@@ -4,11 +4,13 @@ import Footer from "../Components/Footer";
 
 function Home() {
     return (
-        <>
+        <div className="flex min-h-screen flex-col">
             <Header />
-            <Mailer />
+            <div className="flex-1">
+                <Mailer />
+            </div>
             <Footer />
-        </>
+        </div>
     );
 }
 
